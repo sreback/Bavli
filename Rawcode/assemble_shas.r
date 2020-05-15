@@ -44,6 +44,6 @@ assemble_shas <- function(x) {
     
     # this works to create database.
     all_text  <-  full_join(breaklist, talmud_text, by = "rowid")
-    all_text <- all_text %>% add_row(rowid = 0, Talmud = masechet, Daf = pages)
+    all_text <- all_text %>% add_row(rowid = 0, Talmud = masechet, Daf = as.character(pages))
     return(all_text)
 }
