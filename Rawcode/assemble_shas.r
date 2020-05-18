@@ -42,7 +42,7 @@ assemble_shas <- function(x) {
     # structure
     pages <- breaklist$Daf %>% str_extract("דף \\w+\\b") %>% 
         unique() %>% length()
-    message(paste("No. of dapim:", pages)
+    message(paste("No. of dapim:", pages))
 
     # this works to create database.
     all_text  <-  full_join(breaklist, talmud_text, by = "rowid")
