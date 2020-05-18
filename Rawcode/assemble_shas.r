@@ -13,6 +13,7 @@ assemble_shas <- function(x) {
         head(1) %>% html_text() %>%
         str_remove("מסכת") %>%
         str_remove("פרק א") %>% str_trim
+    message(masechet)
     
     # generate node list -- dapim & mishna/gemara breaks
     if (masechet == "ברכות") {
@@ -41,7 +42,8 @@ assemble_shas <- function(x) {
     # structure
     pages <- breaklist$Daf %>% str_extract("דף \\w+\\b") %>% 
         unique() %>% length()
-    
+    message(paste("No. of dapim:", pages)
+
     # this works to create database.
     all_text  <-  full_join(breaklist, talmud_text, by = "rowid")
     all_text <- all_text %>% add_row(rowid = 0, Talmud = masechet, Daf = as.character(pages))
