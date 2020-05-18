@@ -8,7 +8,7 @@ assemble_shas <- function(x) {
 	library(stringr)
 	library(tibble)
 	
-    raw_text <- read_html(x, encoding = "UTF-8")
+    raw_text <- read_html(x)
     masechet <- raw_text %>% html_nodes("h2") %>%
         head(1) %>% html_text() %>%
         str_remove("מסכת") %>%
