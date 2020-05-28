@@ -15,12 +15,8 @@ tell_me_about <- function (x) {
     pages <- as.numeric(x[nrow(x), 2])
     # # words/page
     word_density <- round(words/pages,0)
-    y <- tibble::enframe(c(masechet = masechet_name, dapim = pages, world_length = words))
+    y <- tibble::enframe(c(masechet = masechet_name, dapim = pages, word_length = words, words_per_daf = word_density))
     return(y)
     
-    #     sprintf("%s Dapim: %i \\nWords: %i \\nWords/daf %.2f",
-    #             as.character(masechet_name),
-    #             pages,
-    #             words,
-    #             word_density)
+  
 }    
