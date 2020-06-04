@@ -8,7 +8,6 @@ assemble_shas <- function(x) {
         head(1) %>% html_text() %>%
         str_remove("\u5de\u5e1\u5db\u5ea") %>%
         str_remove("\u5e4\u5e8\u5e7\u20\u5d0") %>% str_trim()
-    message(masechet)
     
     # generate node list -- dapim & mishna/gemara breaks
     if (masechet == ("\u5d1\u5e8\u5db\u5d5\u5ea")) {
@@ -38,7 +37,6 @@ assemble_shas <- function(x) {
     # structure
     pages <- breaklist$Daf %>% str_extract(("\u5d3\u5e3 \\w+\\b")) %>% 
         unique() %>% length()
-    message(pages)
     
     # this works to create database.
     all_text  <-  full_join(breaklist, talmud_text, by = "rowid")
