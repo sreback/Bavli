@@ -3,12 +3,23 @@
 # masechet details are in last row with rowid = 0
 
 assemble_shas <- function(x) {
+
+library(stringr)
+library(dplyr)
+library(jsonlite)
+library(purrr)
+library(tidyr)
+library(rvest)
+library(tibble)
+
     raw_text <- read_html(x)
     masechet <- raw_text %>% html_nodes("h2") %>%
         head(1) %>% html_text() %>%
         str_remove("\u5de\u5e1\u5db\u5ea") %>%
         str_remove("\u5e4\u5e8\u5e7\u20\u5d0") %>% str_trim()
     
+    eng_name <- x %>% str_extract("(?<=Data/).+(?=.htm)")
+
     # generate node list -- dapim & mishna/gemara breaks
     if (masechet == ("\u5d1\u5e8\u5db\u5d5\u5ea")) {
         dapim <- raw_text %>% html_nodes("p") %>% tail(-3)
@@ -39,7 +50,8 @@ assemble_shas <- function(x) {
         unique() %>% length()
     
     # this works to create database.
-    all_text  <-  full_join(breaklist, talmud_text, by = "rowid")
+    all_text  <-  full_join(breaklist, talmud_text, by = "rowid") %>%
+        mutate(name = masechet, english = eng_name)
     all_text <- all_text %>% add_row(rowid = 0, Talmud = masechet, Daf = as.character(pages))
     return(all_text)
 }
